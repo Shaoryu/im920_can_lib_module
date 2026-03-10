@@ -122,7 +122,7 @@ int main()
                 msg.data[6]=((data[6]&0x7F)|((data[7]<<7)&0x80))&0xFF;
                 msg.data[7]=((data[7]>>1)&0x3F)|((input[flag+1]<<6)&0xC0);
 
-                can.write(msg);
+                //can.write(msg);
                 msg_again=msg;
                 limit.reset();
             }
