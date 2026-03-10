@@ -1,4 +1,5 @@
 #include "mbed.h"
+#define CANID 0x10 //omuniなら0x20
 
 BufferedSerial im920(PA_9,PA_10,19200);
 CAN can(PA_11,PA_12,1000000);
@@ -64,7 +65,7 @@ int main()
 
 
         if(can.read(msg_receive)){
-            if(msg_receive.id==0x10)nodeid=msg_receive.data[0];//メインプログラムが受信したいコントローラノードを保存
+            if(msg_receive.id==CANID)nodeid=msg_receive.data[0];//メインプログラムが受信したいコントローラノードを保存
             else if(msg_receive.id==0x50+node_led){//メインマイコンから送信したいデータを受信
                 //コントローラのモジュールとロボット間通信のモジュールのノードは異なるものにする
                 // while(std::chrono::duration_cast<std::chrono::milliseconds>(t.elapsed_time()).count()<60);
@@ -111,7 +112,7 @@ int main()
                 b=!b;
                 d=1;
                 nodeNUM=input_proc[5]*16+input_proc[6];
-                msg.id=0x10+nodeNUM;//msg idでノード番号判別
+                msg.id=CANID+nodeNUM;//msg idでノード番号判別
                 nodeid=msg.id;//脳筋解決だから改善
                 // if(msg.id==nodeid)d=1;
                 // else d=0;
